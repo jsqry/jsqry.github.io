@@ -52,7 +52,7 @@ Here:
 | `.x( func )`              | [call action](#calls)                                |
 | `<< query >>`             | [nested filtering](#nested-filtering)                |
 
-Note: all mentioned query elements can go in arbitrary order.
+Note: all mentioned query elements are optional and can go in arbitrary order.
 
 ### Field access
 
@@ -63,7 +63,15 @@ Note: all mentioned query elements can go in arbitrary order.
 
 ### Filtering
 
-TODO
+Let's elaborate a bit how _condition_ and _transformation_ work.
+In fact it's very simple. 
+Every expression in square / curly brackets during execution is substituted this way: 
+
+```js
+condition_or_transformation ⟶ function(_,i) { return condition_or_transformation }
+```
+
+(here **_** — the value of item, **i** — it's index).
 
 ### Indexing
 
