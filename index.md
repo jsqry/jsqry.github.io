@@ -8,7 +8,7 @@ API of the lib is truly minimalistic and consists only of two functions:
 `query` and `first`.
 
 ```js
-jsqry.query(target, queryString[,...args])
+jsqry.query(target, queryString[, ...args])
 ```
 
 Query `target` list or object by query defined by `queryString`. Arguments `args` can be used
@@ -20,7 +20,7 @@ in case when parameterized query is used.
 | `query([1,2,3,4,5], '[ _>? && _<? ]', 2, 5)` | `[3,4]` | same using parameters |
 
 ```js
-jsqry.first(target, queryString[,...args])
+jsqry.first(target, queryString[, ...args])
 ```
 
 Same as `jsqry.query` described above but returns first item of result list.
@@ -61,7 +61,7 @@ Note: all mentioned query elements are optional and can go in arbitrary order.
 ### Filtering
 
 Let's elaborate a bit how **condition** and **transformation** work.
-In fact it's very simple. 
+<br>In fact it's very simple. 
 Every expression in square / curly brackets during execution is substituted this way: 
 
 | from                          | to                                                     |
@@ -77,6 +77,14 @@ Every expression in square / curly brackets during execution is substituted this
 | `query(["a", "bb", "aaa", "c"], '[_.startsWith("a")]')` | `["a","aaa"]`   |
 | `query(["a", "bb", "aaa", "c"], '[_.length>1]')`        | `["bb","aaa"]`  |
 
+Examples using index
+
+ | Example                                  | Result        | Comment                |
+ -------------------------------------------|---------------|-------------------------
+ | `query([1,2,3,4,5,6], '[ i % 2 == 0 ]')` | `[2,4,6]`     | Take every 2nd element |
+ | `query([1,2,3,4,5,6], '[ i > 0 ]')`      | `[2,3,4,5,6]` | Omit first element     |
+ 
+ 
 ### Indexing
 
 TODO
