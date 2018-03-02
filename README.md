@@ -7,8 +7,6 @@
 API of the lib is truly minimalistic and consists only of two functions: 
 `query` and `first`.
 
-<br>
-
 ```js
 jsqry.query(target, queryString[,...args])
 ```
@@ -24,8 +22,6 @@ Same with parameterized query:
 
 `query([1,2,3,4,5], '[_>?&&_<?]', 2, 5)` gives same result `[3,4]`.
 
-<br>
-
 ```js
 jsqry.first(target, queryString[,...args])
 ```
@@ -37,3 +33,20 @@ Example:
 `first([1,2,3,4,5], '[_>?&&_<?]', 2, 5)` gives `3`.
 
 ## Query syntax
+
+Query in general can have a form below
+
+```
+field1.field2[ condition or index or slice ].field3{ transformation }.field4
+```
+
+Here:
+
+| part                      | meaning                             |
+----------------------------|--------------------------------------
+| `field1.field2.field3...` | simple fields access, same as in JS |
+| `[ condition ]`           | filtering                           |
+| `[ index ]`               | index access, same as in JS         |
+| `[ from:to:step ]`        | slices, Python-style                |
+| `{ transformation }`      | object transformation               |
+
