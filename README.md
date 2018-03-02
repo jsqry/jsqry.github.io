@@ -9,7 +9,9 @@ API of the lib is truly minimalistic and consists only of two functions:
 
 <br>
 
-#### jsqry.query(target, queryString\[,...args])
+```js
+jsqry.query(target, queryString[,...args])
+```
 
 Query target `target` list or object by query defined by `queryString`. Arguments `args` can be used
 in case when parameterized query is used.
@@ -24,10 +26,14 @@ Same with parameterized query:
 
 <br>
 
-#### jsqry.first(target, queryString\[,...args])
+```js
+jsqry.first(target, queryString[,...args])
+```
 
 Same as `jsqry.query` described above but returns first item of result list.
 
 Example:
 
 `first([1,2,3,4,5], '[_>?&&_<?]', 2, 5)` gives `3`.
+
+## Query syntax
