@@ -37,7 +37,7 @@ Example:
 Query in general can have a form below
 
 ```
-field1.field2[ condition or index or slice ].field3{ transformation }.field4
+field1.field2[ condition or index or slice ].field3{ transformation }.field4<< query >>.field5.x( func )
 ```
 
 Here:
@@ -49,4 +49,7 @@ Here:
 | `[ index ]`               | index access, same as in JS         |
 | `[ from:to:step ]`        | slices, Python-style                |
 | `{ transformation }`      | object transformation               |
+| `.x( func )`              | call action                         |
+| `<< query >>`             | nested filtering                    |
 
+Note: all mentioned query elements can go in arbitrary order.
