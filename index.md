@@ -53,10 +53,11 @@ Note: all mentioned query elements are optional and can go in arbitrary order.
 
 ### Field access
 
-Example                                         | Result   
-------------------------------------------------|----------
-`query([{a:1},{a:2},{a:3}], 'a')`               | `[1,2,3]`
-`query([{a:{b:1}},{a:{b:2}},{a:{b:3}}], 'a.b')` | `[1,2,3]`
+Example                                                | Result   
+-------------------------------------------------------|----------
+`query([{a:1},{a:2},{a:3}], 'a')`                      | `[1,2,3]`
+`query([{a:{b:1}},{a:{b:2}},{a:{b:3}}], 'a.b')`        | `[1,2,3]`
+`query([{name:"John"},{name:"Peter"}], 'name.length')` | `[4,5]`
 
 ### Filtering
 
@@ -87,7 +88,12 @@ Example                                  | Result        | Comment
  
 ### Indexing
 
-TODO
+Example                                        | Result    | Comment     
+-----------------------------------------------|-----------|-------------
+`query(["a", "bb", "aaa", "c"], '[2]')`        | `["aaa"]` |
+`first(["a", "bb", "aaa", "c"], '[2]')`        | `"aaa"`   |
+`first(["a", "bb", "aaa", "c"], '[2].length')` | `3`       |
+`first(["a", "bb", "aaa", "c"], '[-1]')`       | `"c"`     | last element
 
 ### Slicing
 
