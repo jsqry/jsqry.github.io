@@ -42,21 +42,24 @@ field1.field2[ condition or index or slice ].field3{ transformation }.field4<< q
 
 Here:
 
-| part                      | meaning                             |
-----------------------------|--------------------------------------
+| part                      | meaning                                              |
+----------------------------|-------------------------------------------------------
 | `field1.field2.field3...` | [simple fields access](#field-access), same as in JS |
-| `[ condition ]`           | [filtering](#filtering)                           |
-| `[ index ]`               | [index access](#indexing), same as in JS         |
-| `[ from:to:step ]`        | [slices](#slicing), Python-style                |
-| `{ transformation }`      | [object transformation](#transformation)               |
-| `.x( func )`              | [call action](#calls)                         |
-| `<< query >>`             | [nested filtering](#nested-filtering)                    |
+| `[ condition ]`           | [filtering](#filtering)                              |
+| `[ index ]`               | [index access](#indexing), same as in JS             |
+| `[ from:to:step ]`        | [slices](#slicing), Python-style                     |
+| `{ transformation }`      | [object transformation](#transformation)             |
+| `.x( func )`              | [call action](#calls)                                |
+| `<< query >>`             | [nested filtering](#nested-filtering)                |
 
 Note: all mentioned query elements can go in arbitrary order.
 
 ### Field access
 
-TODO
+| Example                                         | Result    |
+--------------------------------------------------|------------
+| `query([{a:1},{a:2},{a:3}], 'a')`               | `[1,2,3]` |
+| `query([{a:{b:1}},{a:{b:2}},{a:{b:3}}], 'a.b')` | `[1,2,3]` |
 
 ### Filtering
 
@@ -79,4 +82,6 @@ TODO
 TODO
 
 ### Nested filtering
+
+TODO
 
