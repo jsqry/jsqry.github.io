@@ -73,6 +73,13 @@ Every expression in square / curly brackets during execution is substituted this
 
 (here **_** — the value of item, **i** — it's index).
 
+| Example                                                 | Result          |
+----------------------------------------------------------|------------------
+| `query([1,2,3,4,5], '[ _ % 2 == 1 ]')`                  | `[1,3,5]`       |
+| `query([{a:1},{a:2},{a:3}], '[_.a>=2]')`                | `[{a:2},{a:3}]` |
+| `query(["a", "bb", "aaa", "c"], '[_.startsWith("a")]')` | `["a","aaa"]`   |
+| `query(["a", "bb", "aaa", "c"], '[_.length>1]')`        | `["bb","aaa"]`  |
+
 ### Indexing
 
 TODO
