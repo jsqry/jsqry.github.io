@@ -44,12 +44,39 @@ Here:
 
 | part                      | meaning                             |
 ----------------------------|--------------------------------------
-| `field1.field2.field3...` | simple fields access, same as in JS |
-| `[ condition ]`           | filtering                           |
-| `[ index ]`               | index access, same as in JS         |
-| `[ from:to:step ]`        | slices, Python-style                |
-| `{ transformation }`      | object transformation               |
-| `.x( func )`              | call action                         |
-| `<< query >>`             | nested filtering                    |
+| `field1.field2.field3...` | [simple fields access](#field-access), same as in JS |
+| `[ condition ]`           | [filtering](#filtering)                           |
+| `[ index ]`               | [index access](#indexing), same as in JS         |
+| `[ from:to:step ]`        | [slices](#slicing), Python-style                |
+| `{ transformation }`      | [object transformation](#transformation)               |
+| `.x( func )`              | [call action](#calls)                         |
+| `<< query >>`             | [nested filtering](#nested-filtering)                    |
 
 Note: all mentioned query elements can go in arbitrary order.
+
+### Field access
+
+TODO
+
+### Filtering
+
+TODO
+
+### Indexing
+
+TODO
+
+### Slicing
+
+TODO
+
+### Transformation
+
+TODO
+
+### Calls
+
+TODO
+
+### Nested filtering
+
