@@ -97,7 +97,15 @@ Example                                        | Result    | Comment
 
 ### Slicing
 
-TODO
+This is very similar to [Python's slicing](https://www.dotnetperls.com/slice-python).
+<br>Has form of `[ from:to:step ]`. Any of `from` / `to` / `step` is optional. 
+
+Example                        | Result        | Comment     
+-------------------------------|---------------|------------------
+`query([1,2,3,4,5], '[::2]')`  | `[1,3,5]`     | Every 2nd element
+`query([1,2,3,4,5], '[1:]')`   | `[2,3,4,5]`   | All but 1st item
+`query([1,2,3,4,5], '[::-1]')` | `[5,4,3,2,1]` | Reverse
+`query([1,2,3,4,5], '[:3]')`   | `[1,2,3]`     | First 3 
 
 ### Transformation
 
