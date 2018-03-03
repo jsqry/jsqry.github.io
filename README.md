@@ -4,15 +4,15 @@
 
 ## API
 
-API of the lib is truly minimalistic and consists only of two functions: 
+API of jsqry is truly minimalistic and consists only of two functions: 
 `query` and `first`.
 
 ```js
-jsqry.query(target, queryString[, ...args])
+jsqry.query(target, query[, ...args])
 ```
 
-Query `target` list or object by query defined by `queryString`. Arguments `args` can be used
-in case when parameterized query is used.
+Query `target` list or object by `query`. Arguments `args` can be used
+for parameterized queries.
 
 Example                                      | Result  | Comment              
 ---------------------------------------------|---------|----------------------
@@ -20,7 +20,7 @@ Example                                      | Result  | Comment
 `query([1,2,3,4,5], '[ _>? && _<? ]', 2, 5)` | `[3,4]` | same using parameters
 
 ```js
-jsqry.first(target, queryString[, ...args])
+jsqry.first(target, query[, ...args])
 ```
 
 Same as `jsqry.query` described above but returns first item of result list.
