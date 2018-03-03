@@ -77,14 +77,16 @@ Example                                                 | Result
 `query([{a:1},{a:2},{a:3}], '[_.a>=2]')`                | `[{a:2},{a:3}]`
 `query(["a", "bb", "aaa", "c"], '[_.startsWith("a")]')` | `["a","aaa"]`  
 `query(["a", "bb", "aaa", "c"], '[_.length>1]')`        | `["bb","aaa"]` 
+`query(["",1,null,"B",undefined,333,false], '[_]')`     | `[1, "B", 333]` 
 
 Examples using index:
 
 Example                                  | Result        | Comment               
 -----------------------------------------|---------------|-----------------------
-`query([1,2,3,4,5,6], '[ i % 2 == 0 ]')` | `[2,4,6]`     | Take every 2nd element
-`query([1,2,3,4,5,6], '[ i > 0 ]')`      | `[2,3,4,5,6]` | Omit first element    
- 
+`query([1,2,3,4,5,6], '[ i % 2 == 0 ]')` | `[2,4,6]`     | Take every 2nd element *
+`query([1,2,3,4,5,6], '[ i > 0 ]')`      | `[2,3,4,5,6]` | Omit first element *    
+
+\* - same result is achievable by [slicing](#slicing) `[::2]` and `[1:]` 
  
 ### Indexing
 
@@ -109,7 +111,15 @@ Example                        | Result        | Comment
 
 ### Transformation
 
-TODO
+See [Filtering](#filtering) section to understand how expression is evaluated.
+
+Example                                           | Result                  | Comment     
+--------------------------------------------------|-------------------------|------------------
+`query([1,2,3,4,5], '{_*100}')`                   | `[100,200,300,400,500]` | 
+`query([1,2,3,4,5], '{_*?}', 100)`                | `[100,200,300,400,500]` | Same using parameter 
+`query(['a', 'bB', 'Ccc'], '{_.toUpperCase()}')`  | `["A", "BB", "CCC"]`    |
+`query(Array(5), '{i}')`                          | `[0, 1, 2, 3, 4]`       | Generate number sequence  
+
 
 ### Calls
 
