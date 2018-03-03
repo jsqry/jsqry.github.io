@@ -34,7 +34,7 @@ Example                                          | Result
 Query in general can have a form below
 
 ```
-field1.field2[ condition or index or slice ].field3{ transformation }.field4<< query >>.field5.x( func )
+field1.field2[ CONDITION or INDEX or SLICE ].field3{ TRANSFORMATION }.field4<< QUERY >>.field5.x( EXPRESSION )
 ```
 
 Here:
@@ -42,12 +42,12 @@ Here:
 part                      | meaning                                             
 --------------------------|-----------------------------------------------------
 `field1.field2.field3...` | [simple fields access](#field-access), same as in JS
-`[ condition ]`           | [filtering](#filtering)                             
-`[ index ]`               | [index access](#indexing), same as in JS            
-`[ from:to:step ]`        | [slices](#slicing), Python-style                    
-`{ transformation }`      | [object transformation](#transformation)            
-`.x( func )`              | [call action](#calls)                               
-`<< query >>`             | [nested filtering](#nested-filtering)               
+`[ CONDITION ]`           | [filtering](#filtering)                             
+`[ INDEX ]`               | [index access](#indexing), same as in JS            
+`[ FROM:TO:STEP ]`        | [slices](#slicing), Python-style                    
+`{ TRANSFORMATION }`      | [object transformation](#transformation)            
+`.x( EXPRESSION )`        | [call action](#calls)                               
+`<< QUERY >>`             | [nested filtering](#nested-filtering)               
 
 Note: all mentioned query elements are optional and can go in arbitrary order.
 
@@ -61,7 +61,7 @@ Example                                                | Result
 
 ### Filtering
 
-Filtering has a form `[ condition ]` where `condition` should be [functional expression](#functional-expression).
+Filtering has a form `[ CONDITION ]` where `CONDITION` should be [functional expression](#functional-expression).
 
 #### Functional expression
 
@@ -119,7 +119,7 @@ Example                        | Result        | Comment
 
 ### Transformation
 
-Transformation has a form `{ transformation }` where `transformation` should be [functional expression](#functional-expression).
+Transformation has a form `{ TRANSFORMATION }` where `TRANSFORMATION` should be [functional expression](#functional-expression).
 
 Example                                           | Result                  | Comment     
 --------------------------------------------------|-------------------------|------------------
@@ -135,13 +135,13 @@ Example                                           | Result                  | Co
 Calls are used to apply some transformation to collection as a whole.
 <br>At the moment these are supported
 
-call        | description
-------------|-------------
-.s( expr )  | sorting
-.u( expr )  | unique
-.g( expr )  | grouping
+call             | description
+-----------------|-------------
+.s( EXPRESSION ) | sorting
+.u( EXPRESSION ) | unique
+.g( EXPRESSION ) | grouping
 
-Note that any of the call can accept optional [functional expression](#functional-expression) `expr` that will define the behavior of a call.
+Note that any of the call can accept optional [functional expression](#functional-expression) `EXPRESSION` that will define the behavior of a call.
 If omitted the default is used which is identity (`_`). 
 
 Example                                            | Result                       | Comment     
@@ -159,7 +159,7 @@ Example                                            | Result                     
 
 ### Nested filtering
 
-Nested filtering has a form `<< query >>` where `query` should be [jsqry query string](#query-syntax).
+Nested filtering has a form `<< QUERY >>` where `QUERY` should be [jsqry query string](#query-syntax).
 
 Nested filtering can help you in case of a query like <i>select a man who has a son older 10</i>.
 If you try to achieve this using [filtering](#filtering) you realize that you need to implement some sort of a loop in `condition` part: 
