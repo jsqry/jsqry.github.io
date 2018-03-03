@@ -70,8 +70,8 @@ Let's elaborate a bit how this works.
 Every expression during execution by jsqry is substituted to a function this way: 
 
 from         | to                                                    
--------------|-------------------------------------------------------
-`expression` | `function(_,i) { return expression }`
+-------------|--------------------------------------
+`EXPRESSION` | `function(_,i) { return EXPRESSION }`
 
 (here **_** — the value of item, **i** — it's index).
 
@@ -141,7 +141,7 @@ call        | description
 .u( expr )  | unique
 .g( expr )  | grouping
 
-Note that any of the call can accept optional function expression `expr` that will define the behavior of a call.
+Note that any of the call can accept optional [functional expression](#functional-expression) `expr` that will define the behavior of a call.
 If omitted the default is used which is identity (`_`). 
 
 ### Nested filtering
