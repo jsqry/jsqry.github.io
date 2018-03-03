@@ -61,15 +61,23 @@ Example                                                | Result
 
 ### Filtering
 
-Let's elaborate a bit how **condition** and **transformation** work.
-<br>In fact it's very simple. 
-Every expression in square / curly brackets during execution is substituted this way: 
+Filtering has a form `[ condition ]` where `condition` should be [functional expression](#functional-expression).
 
-from                          | to                                                    
-------------------------------|-------------------------------------------------------
-`condition_or_transformation` | `function(_,i) { return condition_or_transformation }`
+#### Functional expression
+
+Let's elaborate a bit how this works.
+<br>In fact it's very simple. 
+Every expression during execution by jsqry is substituted to a function this way: 
+
+from         | to                                                    
+-------------|-------------------------------------------------------
+`expression` | `function(_,i) { return expression }`
 
 (here **_** — the value of item, **i** — it's index).
+
+This function is then applied to the elements being queried.
+
+Examples of filtering:
 
 Example                                                 | Result         
 --------------------------------------------------------|----------------
@@ -111,7 +119,7 @@ Example                        | Result        | Comment
 
 ### Transformation
 
-See [Filtering](#filtering) section to understand how expression is evaluated.
+Transformation has a form `{ transformation }` where `transformation` should be [functional expression](#functional-expression).
 
 Example                                           | Result                  | Comment     
 --------------------------------------------------|-------------------------|------------------
@@ -120,21 +128,21 @@ Example                                           | Result                  | Co
 `query(['a', 'bB', 'Ccc'], '{_.toUpperCase()}')`  | `["A", "BB", "CCC"]`    |
 `query(Array(5), '{i}')`                          | `[0, 1, 2, 3, 4]`       | Generate number sequence  
 `query([1,2,3,5],'{?(_,?)}', Math.pow, 2)`        | `[1, 4, 9, 25]`         | squares
-`query([{f:'John',l:'Doe'},{f:'Bill',l:'Smith'}],'{_.f + " " + _.l}')` | `["John Doe", "Bill Smith"]` |
+`query([{f:'John',l:'Doe'},{f:'Bill',l:'Smith'}],'{_.f+" "+_.l}')` | `["John Doe","Bill Smith"]` |
 
 ### Calls
 
 Calls are used to apply some transformation to collection as a whole.
-<br>At the moment three calls are supported
+<br>At the moment these are supported
 
-call  | description
-------|-------------
-.s()  | sorting
-.u()  | unique
-.g()  | grouping
+call        | description
+------------|-------------
+.s( expr )  | sorting
+.u( expr )  | unique
+.g( expr )  | grouping
 
-Note that any of the call can accept function expression that will define the behavior of a call.
-
+Note that any of the call can accept optional function expression `expr` that will define the behavior of a call.
+If omitted the default is used which is identity (`_`). 
 
 ### Nested filtering
 
