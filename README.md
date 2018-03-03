@@ -144,13 +144,18 @@ call        | description
 Note that any of the call can accept optional [functional expression](#functional-expression) `expr` that will define the behavior of a call.
 If omitted the default is used which is identity (`_`). 
 
-Example                                            | Result                      | Comment     
----------------------------------------------------|-----------------------------|----------
-`query([2,3,1,5,4], 's()')`                        | `[1,2,3,4,5]`               | sort
-`query([2,3,1,5,4], 's(-_)')`                      | `[5,4,3,2,1]`               | sort desc
-`query([{age:5},{age:1},{age:3}],'s(_.age)')`      | `[{age:1},{age:3},{age:5}]` | sort by age
-`first([{age:5},{age:1},{age:3}],'s(-_.age).age')` | `[{age:1},{age:3},{age:5}]` | max age
-`query([1,2,1,1,3,2], 'u()')`                      | `[1,2,3]`                   | unique
+Example                                            | Result                       | Comment     
+---------------------------------------------------|------------------------------|----------
+`query([2,3,1,5,4], 's()')`                        | `[1,2,3,4,5]`                | sort
+`query([2,3,1,5,4], 's(-_)')`                      | `[5,4,3,2,1]`                | sort desc
+`query([{age:5},{age:1},{age:3}],'s(_.age)')`      | `[{age:1},{age:3},{age:5}]`  | sort by age
+`first([{age:5},{age:1},{age:3}],'s(-_.age).age')` | `5`                          | max age
+`first([{age:20,name:'John'},{age:30,name:"Peter"},'s(-_.age).name')` | `"Peter"` | oldest
+`query([1,2,1,1,3,2], 'u()')`                      | `[1,2,3]`                    | unique
+`query(["aa", "b", "a", "bbb", "c"], 'u(_[0])')`   | `["aa", "b", "c"]`           | unique by 1st letter
+`query([1,2,1,1,3,2], 'g()')`                      | `[[1,[1,1,1]],[2,[2,2]],[3,[3]]]` | group
+`first([1,2,1,1,3,2], 'g().s(-_[1].length).0')`    | `1`                          | the most popular digit
+`query(["aa", "b", "a", "bbb", "c"], 'g(_[0])')`   | `[["a",["aa","a"]],["b",["b","bbb"]],["c",["c"]]]` | group by 1st letter
 
 ### Nested filtering
 
