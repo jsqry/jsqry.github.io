@@ -119,11 +119,22 @@ Example                                           | Result                  | Co
 `query([1,2,3,4,5], '{_*?}', 100)`                | `[100,200,300,400,500]` | Same using parameter 
 `query(['a', 'bB', 'Ccc'], '{_.toUpperCase()}')`  | `["A", "BB", "CCC"]`    |
 `query(Array(5), '{i}')`                          | `[0, 1, 2, 3, 4]`       | Generate number sequence  
-
+`query([1,2,3,5],'{?(_,?)}', Math.pow, 2)`        | `[1, 4, 9, 25]`         | squares
+`query([{f:'John',l:'Doe'},{f:'Bill',l:'Smith'}],'{_.f + " " + _.l}')` | `["John Doe", "Bill Smith"]` |
 
 ### Calls
 
-TODO
+Calls are used to apply some transformation to collection as a whole.
+<br>At the moment three calls are supported
+
+call  | description
+------|-------------
+.s()  | sorting
+.u()  | unique
+.g()  | grouping
+
+Note that any of the call can accept function expression that will define the behavior of a call.
+
 
 ### Nested filtering
 
