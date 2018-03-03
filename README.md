@@ -128,7 +128,7 @@ Example                                           | Result                  | Co
 `query(['a', 'bB', 'Ccc'], '{_.toUpperCase()}')`  | `["A", "BB", "CCC"]`    |
 `query(Array(5), '{i}')`                          | `[0, 1, 2, 3, 4]`       | Generate number sequence  
 `query([1,2,3,5],'{?(_,?)}', Math.pow, 2)`        | `[1, 4, 9, 25]`         | squares
-`query([{f:'John',l:'Doe'},{f:'Bill',l:'Smith'}],'{_.f+" "+_.l}')` | `["John Doe","Bill Smith"]` |
+`query([{f:'John',l:'Doe'},{f:'Bill',l:'Smith'}], '{_.f + " " + _.l}')` | `["John Doe","Bill Smith"]` |
 
 ### Calls
 
@@ -143,6 +143,14 @@ call        | description
 
 Note that any of the call can accept optional [functional expression](#functional-expression) `expr` that will define the behavior of a call.
 If omitted the default is used which is identity (`_`). 
+
+Example                                            | Result                      | Comment     
+---------------------------------------------------|-----------------------------|----------
+`query([2,3,1,5,4], 's()')`                        | `[1,2,3,4,5]`               | sort
+`query([2,3,1,5,4], 's(-_)')`                      | `[5,4,3,2,1]`               | sort desc
+`query([{age:5},{age:1},{age:3}],'s(_.age)')`      | `[{age:1},{age:3},{age:5}]` | sort by age
+`first([{age:5},{age:1},{age:3}],'s(-_.age).age')` | `[{age:1},{age:3},{age:5}]` | max age
+`query([1,2,1,1,3,2], 'u()')`                      | `[1,2,3]`                   | unique
 
 ### Nested filtering
 
