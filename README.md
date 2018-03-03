@@ -159,5 +159,23 @@ Example                                            | Result                     
 
 ### Nested filtering
 
-TODO
+Nested filtering has a form `<< query >>` where `query` should be [jsqry query string](#query-syntax).
+
+Nested filtering can help you in case of a query like <i>select a man who has a son older 10</i>.
+If you try to achieve this using [filtering](#filtering) you realize that in `condition` part you need to implement some sort of loop: 
+
+```javascript
+var men = [{name:"Ivan", sons:[{age:1},{age:5}]}, {name:"Peter", sons:[{age:7},{age:20}]}];
+
+first(men, '[_.sons.filter(son=>son.age>10).length].name')
+// "Peter"
+``` 
+
+Here is how the same achieved by nested filtering:
+```javascript
+first(men, '<<sons[_.age>10]>>.name')
+// "Peter"
+```
+
+During nested filtering element is included if nested `query` for it yields a result with at least one true-like element. 
 
