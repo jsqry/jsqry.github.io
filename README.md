@@ -59,9 +59,6 @@ Example                                                | Result
 `query([{a:{b:1}},{a:{b:2}},{a:{b:3}}], 'a.b')`        | `[1,2,3]`
 `query([{name:"John"},{name:"Peter"}], 'name.length')` | `[4,5]`
 
-*Note: unlike JS spaces are not allowed around dots in paths. Ex.: `query([],'a  . b. c')` is invalid and will throw error.
-Spaces are allowed inside expressions though.*
-
 ### Filtering
 
 Filtering has a form `[ CONDITION ]` where `CONDITION` should be [functional expression](#functional-expression).
