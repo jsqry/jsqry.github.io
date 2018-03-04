@@ -137,7 +137,7 @@ Example                                           | Result                  | Co
 ### Calls
 
 Calls are used to apply some transformation to collection as a whole.
-<br>At the moment these are supported
+<br>At the moment these are supported:
 
 call      | description
 ----------|-------------
