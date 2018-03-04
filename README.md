@@ -206,5 +206,35 @@ Example                                       | Result                        | 
 
 ### More examples
 
-TODO
+Here are some interesting results you can achieve with jsqry if you twist it a bit :-)
+
+Zip:
+```javascript
+query(['a', 'b', 'c', 'd'], '{[_,?[i]]}', ['A', 'B', 'C', 'D'])
+// [['a','A'],['b', 'B'],['c', 'C'],['d', 'D']]
+
+query(['a', 'b', 'c', 'd'], '{ [_, ?[i], ?[i]] }', ['A', 'B', 'C', 'D'], ['AA', 'BB', 'CC', 'DD'])
+// [['a','A', 'AA'],['b', 'B', 'BB'],['c', 'C', 'CC'],['d', 'D', 'DD']]
+```
+
+Enumerate:
+```javascript
+query(['a', 'b', 'c', 'd'], '{[i,_]}')
+// [[0, 'a'], [1, 'b'], [2, 'c'], [3, 'd']]
+
+query(Array(26), '{String.fromCharCode(i+97)}').join('')
+// 'abcdefghijklmnopqrstuvwxyz'
+```
+
+Difference:
+```javascript
+query([1, 2, 1, 0, 3, 1, 4], '[?.indexOf(_)<0]', [0, 1])
+// [2, 3, 4]
+```
+
+Union:
+```javascript
+query([[1, 2, 3], [101, 2, 1, 10], [2, 1]], '*.u()')
+// [1, 2, 3, 101, 10]
+```
 
