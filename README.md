@@ -34,19 +34,19 @@ Example                                          | Result
 Query in general can have a form below
 
 ```
-field1.field2[ CONDITION or INDEX or SLICE ].field3{ TRANSFORMATION }.field4<< QUERY >>.field5.x( KEY )
+field1.field2[ CONDITION or INDEX or SLICE ].field3{ TRANSFORMATION }.field4<< QUERY >>.field5.x( KEYEXPR )
 ```
 
 Here:
 
 part                      | meaning                                             
---------------------------|-----------------------------------------------------
-`field1.field2.field3...` | [simple fields access](#field-access), same as in JS
+--------------------------|-----------------------------------------------
+`field1.field2.field3...` | [fields access](#field-access), same as in JS
 `[ CONDITION ]`           | [filtering](#filtering)                             
 `[ INDEX ]`               | [index access](#indexing), same as in JS            
 `[ FROM:TO:STEP ]`        | [slices](#slicing), Python-style                    
 `{ TRANSFORMATION }`      | [object transformation](#transformation)            
-`.x( KEY )`               | [call action](#calls)                               
+`.x( KEYEXPR )`           | [call action](#calls)                               
 `<< QUERY >>`             | [nested filtering](#nested-filtering)               
 
 *Note: all mentioned query elements are optional and can be combined in arbitrary order.*
@@ -93,12 +93,12 @@ Example                                                 | Result          | Comm
 
 Examples using index argument **i**:
 
-Example                                  | Result        | Comment               
------------------------------------------|---------------|-------------------------
-`query([1,2,3,4,5,6], '[ i % 2 == 0 ]')` | `[2,4,6]`     | Take every 2nd element *
-`query([1,2,3,4,5,6], '[ i > 0 ]')`      | `[2,3,4,5,6]` | Omit first element *    
+Example                             | Result        | Comment               
+------------------------------------|---------------|-------------------------
+`query([1,2,3,4,5,6], '[ i % 2 ]')` | `[2,4,6]`     | Take every 2nd element *
+`query([1,2,3,4,5,6], '[ i > 0 ]')` | `[2,3,4,5,6]` | Omit first element *    
 
-\* - same result is achievable by [slicing](#slicing) `[::2]` and `[1:]` 
+\* - same result is achievable by [slicing](#slicing): `[1::2]` and `[1:]`. 
  
 ### Indexing
 
@@ -118,8 +118,8 @@ This is very similar to [Python's slicing](https://www.dotnetperls.com/slice-pyt
 Has form of `[ FROM:TO:STEP ]`. Any of `FROM` / `TO` / `STEP` is optional. 
 
 Example                        | Result        | Comment     
--------------------------------|---------------|------------------
-`query([1,2,3,4,5], '[::2]')`  | `[1,3,5]`     | Every 2nd element
+-------------------------------|---------------|--------------------
+`query([1,2,3,4,5], '[::2]')`  | `[1,3,5]`     | Every other element
 `query([1,2,3,4,5], '[1:]')`   | `[2,3,4,5]`   | All but 1st item
 `query([1,2,3,4,5], '[:-1]')`  | `[1,2,3,4]`   | All but last item
 `query([1,2,3,4,5], '[::-1]')` | `[5,4,3,2,1]` | Reverse
@@ -144,13 +144,13 @@ Calls are used to apply some transformation to collection as a whole.
 
 At the moment these are supported:
 
-call      | description
-----------|-------------
-.s( KEY ) | sorting
-.u( KEY ) | unique
-.g( KEY ) | grouping
+call          | description
+--------------|-------------
+.s( KEYEXPR ) | sorting
+.u( KEYEXPR ) | unique
+.g( KEYEXPR ) | grouping
 
-Note that any of the call can accept optional [functional expression](#functional-expression) `KEY` that will define the behavior of a call.
+Note that any of the call can accept optional [functional expression](#functional-expression) `KEYEXPR` that will define the behavior of a call.
 If omitted the default is used which is identity (`_`). 
 
 Example                                            | Result                       | Comment     
