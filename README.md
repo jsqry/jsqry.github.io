@@ -34,7 +34,7 @@ Example                                          | Result
 Query in general can have a form below
 
 ```
-field1.field2[ CONDITION or INDEX or SLICE ].field3{ TRANSFORMATION }.field4<< QUERY >>.field5.x( EXPRESSION )
+field1.field2[ CONDITION or INDEX or SLICE ].field3{ TRANSFORMATION }.field4<< QUERY >>.field5.x( KEY )
 ```
 
 Here:
@@ -46,7 +46,7 @@ part                      | meaning
 `[ INDEX ]`               | [index access](#indexing), same as in JS            
 `[ FROM:TO:STEP ]`        | [slices](#slicing), Python-style                    
 `{ TRANSFORMATION }`      | [object transformation](#transformation)            
-`.x( EXPRESSION )`        | [call action](#calls)                               
+`.x( KEY )`               | [call action](#calls)                               
 `<< QUERY >>`             | [nested filtering](#nested-filtering)               
 
 Note: all mentioned query elements are optional and can go in arbitrary order.
@@ -58,6 +58,9 @@ Example                                                | Result
 `query([{a:1},{a:2},{a:3}], 'a')`                      | `[1,2,3]`
 `query([{a:{b:1}},{a:{b:2}},{a:{b:3}}], 'a.b')`        | `[1,2,3]`
 `query([{name:"John"},{name:"Peter"}], 'name.length')` | `[4,5]`
+
+Note: unlike JS spaces are not allowed around dots in paths. Ex.: `query([],'a  . b. c')` is invalid and will throw error.
+Spaces are allowed inside expressions though.
 
 ### Filtering
 
@@ -135,13 +138,13 @@ Example                                           | Result                  | Co
 Calls are used to apply some transformation to collection as a whole.
 <br>At the moment these are supported
 
-call             | description
------------------|-------------
-.s( EXPRESSION ) | sorting
-.u( EXPRESSION ) | unique
-.g( EXPRESSION ) | grouping
+call      | description
+----------|-------------
+.s( KEY ) | sorting
+.u( KEY ) | unique
+.g( KEY ) | grouping
 
-Note that any of the call can accept optional [functional expression](#functional-expression) `EXPRESSION` that will define the behavior of a call.
+Note that any of the call can accept optional [functional expression](#functional-expression) `KEY` that will define the behavior of a call.
 If omitted the default is used which is identity (`_`). 
 
 Example                                            | Result                       | Comment     
@@ -156,6 +159,10 @@ Example                                            | Result                     
 `query([1,2,1,1,3,2], 'g()')`                      | `[[1,[1,1,1]],[2,[2,2]],[3,[3]]]` | group
 `first([1,2,1,1,3,2], 'g().s(-_[1].length).0')`    | `1`                          | the most popular digit
 `query(["aa", "b", "a", "bbb", "c"], 'g(_[0])')`   | `[["a",["aa","a"]],["b",["b","bbb"]],["c",["c"]]]` | group by 1st letter
+
+#### Custom calls
+
+TODO
 
 ### Nested filtering
 
@@ -178,4 +185,12 @@ first(men, '<<sons[_.age>10]>>.name')
 ```
 
 During nested filtering element is included if nested `query` for it yields a result with at least one true-like element. 
+
+### Flatting
+
+TODO
+
+### More examples
+
+TODO
 
