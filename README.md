@@ -82,18 +82,18 @@ This function is then applied to the elements being queried.
 
 Examples of filtering:
 
-Example                                                 | Result         
---------------------------------------------------------|----------------
-`query([1,2,3,4,5], '[ _ % 2 == 1 ]')`                  | `[1,3,5]`      
-`query([{a:1},{a:2},{a:3}], '[_.a>=2]')`                | `[{a:2},{a:3}]`
-`query(["a", "bb", "aaa", "c"], '[_.startsWith("a")]')` | `["a","aaa"]`  
-`query(["a", "bb", "aaa", "c"], '[_.length>1]')`        | `["bb","aaa"]` 
-`query(["",1,null,"B",undefined,333,false], '[_]')`     | `[1, "B", 333]` 
+Example                                                 | Result          | Comment
+--------------------------------------------------------|-----------------|---------------------
+`query([1,2,3,4,5], '[ _ % 2 == 1 ]')`                  | `[1,3,5]`       | odd elements
+`query([{a:1},{a:2},{a:3}], '[_.a>=2]')`                | `[{a:2},{a:3}]` |
+`query(["a", "bb", "aaa", "c"], '[_.startsWith("a")]')` | `["a","aaa"]`   |
+`query(["a", "bb", "aaa", "c"], '[_.length>1]')`        | `["bb","aaa"]`  |
+`query(["",1,null,"B",undefined,333,false], '[_]')`     | `[1, "B", 333]` | only true-like items
 
 Examples using index:
 
 Example                                  | Result        | Comment               
------------------------------------------|---------------|-----------------------
+-----------------------------------------|---------------|-------------------------
 `query([1,2,3,4,5,6], '[ i % 2 == 0 ]')` | `[2,4,6]`     | Take every 2nd element *
 `query([1,2,3,4,5,6], '[ i > 0 ]')`      | `[2,3,4,5,6]` | Omit first element *    
 
