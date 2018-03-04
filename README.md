@@ -101,6 +101,8 @@ Example                                  | Result        | Comment
  
 ### Indexing
 
+Same to JS with addition: index can be negative (meaning index from the end).
+
 Example                                        | Result    | Comment     
 -----------------------------------------------|-----------|-------------
 `query(["a", "bb", "aaa", "c"], '[2]')`        | `["aaa"]` |
@@ -118,6 +120,7 @@ Example                        | Result        | Comment
 -------------------------------|---------------|------------------
 `query([1,2,3,4,5], '[::2]')`  | `[1,3,5]`     | Every 2nd element
 `query([1,2,3,4,5], '[1:]')`   | `[2,3,4,5]`   | All but 1st item
+`query([1,2,3,4,5], '[:-1]')`  | `[1,2,3,4]`   | All but last item
 `query([1,2,3,4,5], '[::-1]')` | `[5,4,3,2,1]` | Reverse
 `query([1,2,3,4,5], '[:3]')`   | `[1,2,3]`     | First 3 
 
