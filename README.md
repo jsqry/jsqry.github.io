@@ -196,14 +196,15 @@ During nested filtering element is included if nested `query` for it yields a re
 
 This will help you if you have array of arrays and you want to query the inner elements.
 
-You need to use `it` [path element](#field-access). 
+You need to use `*` [path element](#field-access). 
 
-Example                                         | Result                      | Comment     
-------------------------------------------------|-----------------------------|--------------------
-`query([["a", "bb"], ["cccc"]],'it')`           | `["a", "bb", "cccc"]`       |
-`query([["a", "bb"], ["cccc"]],'it.length')`    | `[1, 2, 4]`                 |
-`query([["a", "bb"], ["cccc"]],'length')`       | `[2, 1]`                    | Compare with previous
-`query([["a", "bb"], ["cccc",["dd"]]],'it.it')` | `["a", "bb", "cccc", "dd"]` |
+Example                                       | Result                        | Comment     
+----------------------------------------------|-------------------------------|--------------------
+`query([["a", "bb"], ["cccc"]],'*')`          | `["a", "bb", "cccc"]`         |
+`query([["a", "bb"], ["cccc"]],'*.length')`   | `[1, 2, 4]`                   |
+`query([["a", "bb"], ["cccc"]],'length')`     | `[2, 1]`                      | Compare with previous
+`query([["a", "bb"], ["cccc",["dd"]]],'*')`   | `["a", "bb", "cccc", ["dd"]]` |
+`query([["a", "bb"], ["cccc",["dd"]]],'*.*')` | `["a", "bb", "cccc", "dd"]`   |
 
 ### More examples
 
