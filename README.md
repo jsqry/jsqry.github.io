@@ -171,20 +171,21 @@ TODO
 
 Nested filtering has a form `<< QUERY >>` where `QUERY` should be [jsqry query string](#query-syntax).
 
-Nested filtering can help you in case of a query like <i>select a man who has a son older 10</i>.
+Nested filtering can help you in case of a query like <i>select a parent who has a child older 10</i>.
 If you try to achieve this using [filtering](#filtering) you realize that you need to implement some sort of a loop in `condition` part: 
 
 ```javascript
-var men = [{name:"John", sons:[{age:1},{age:5}]}, {name:"Peter", sons:[{age:7},{age:20}]}];
+var parents = [{name:"John", children:[{age:1},{age:5}]}, {name:"Alice", children:[{age:7},{age:12}]}];
 
-first(men, '[_.sons.filter(son=>son.age>10).length].name')
-// "Peter"
+first(parents, '[_.children.filter(child=>child.age>10).length].name')
+// "Alice"
 ``` 
 
-Here is how the same achieved by nested filtering:
+And here is how we can do the same much simpler using nested filtering:
+
 ```javascript
-first(men, '<<sons[_.age>10]>>.name')
-// "Peter"
+first(parents, '<<children[_.age>10]>>.name')
+// "Alice"
 ```
 
 During nested filtering element is included if nested `query` for it yields a result with at least one true-like element. 
