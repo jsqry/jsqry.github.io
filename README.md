@@ -111,7 +111,8 @@ Example                                        | Result    | Comment
 ### Slicing
 
 This is very similar to [Python's slicing](https://www.dotnetperls.com/slice-python).
-<br>Has form of `[ from:to:step ]`. Any of `from` / `to` / `step` is optional. 
+
+Has form of `[ FROM:TO:STEP ]`. Any of `FROM` / `TO` / `STEP` is optional. 
 
 Example                        | Result        | Comment     
 -------------------------------|---------------|------------------
