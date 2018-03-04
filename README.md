@@ -90,7 +90,7 @@ Example                                                 | Result          | Comm
 `query(["a", "bb", "aaa", "c"], '[_.length>1]')`        | `["bb","aaa"]`  |
 `query(["",1,null,"B",undefined,333,false], '[_]')`     | `[1, "B", 333]` | only true-like items
 
-Examples using index:
+Examples using index argument **i**:
 
 Example                                  | Result        | Comment               
 -----------------------------------------|---------------|-------------------------
