@@ -178,7 +178,7 @@ Nested filtering can help you in case of a query like <i>select a man who has a 
 If you try to achieve this using [filtering](#filtering) you realize that you need to implement some sort of a loop in `condition` part: 
 
 ```javascript
-var men = [{name:"Ivan", sons:[{age:1},{age:5}]}, {name:"Peter", sons:[{age:7},{age:20}]}];
+var men = [{name:"John", sons:[{age:1},{age:5}]}, {name:"Peter", sons:[{age:7},{age:20}]}];
 
 first(men, '[_.sons.filter(son=>son.age>10).length].name')
 // "Peter"
@@ -194,7 +194,16 @@ During nested filtering element is included if nested `query` for it yields a re
 
 ### Flatting
 
-TODO
+This will help you if you have array of arrays and you want to query the inner elements.
+
+You need to use `it` [path element](#field-access). 
+
+Example                                         | Result                      | Comment     
+------------------------------------------------|-----------------------------|--------------------
+`query([["a", "bb"], ["cccc"]],'it')`           | `["a", "bb", "cccc"]`       |
+`query([["a", "bb"], ["cccc"]],'it.length')`    | `[1, 2, 4]`                 |
+`query([["a", "bb"], ["cccc"]],'length')`       | `[2, 1]`                    | Compare with previous
+`query([["a", "bb"], ["cccc",["dd"]]],'it.it')` | `["a", "bb", "cccc", "dd"]` |
 
 ### More examples
 
