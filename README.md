@@ -49,7 +49,7 @@ part                      | meaning
 `.x( KEY )`               | [call action](#calls)                               
 `<< QUERY >>`             | [nested filtering](#nested-filtering)               
 
-Note: all mentioned query elements are optional and can go in arbitrary order.
+*Note: all mentioned query elements are optional and can be combined in arbitrary order.*
 
 ### Field access
 
@@ -59,8 +59,8 @@ Example                                                | Result
 `query([{a:{b:1}},{a:{b:2}},{a:{b:3}}], 'a.b')`        | `[1,2,3]`
 `query([{name:"John"},{name:"Peter"}], 'name.length')` | `[4,5]`
 
-Note: unlike JS spaces are not allowed around dots in paths. Ex.: `query([],'a  . b. c')` is invalid and will throw error.
-Spaces are allowed inside expressions though.
+*Note: unlike JS spaces are not allowed around dots in paths. Ex.: `query([],'a  . b. c')` is invalid and will throw error.
+Spaces are allowed inside expressions though.*
 
 ### Filtering
 
@@ -69,7 +69,8 @@ Filtering has a form `[ CONDITION ]` where `CONDITION` should be [functional exp
 #### Functional expression
 
 Let's elaborate a bit how this works.
-<br>In fact it's very simple. 
+
+In fact it's very simple. 
 Every expression during execution by jsqry is substituted to a function this way: 
 
 from         | to                                                    
@@ -140,7 +141,8 @@ Example                                           | Result                  | Co
 ### Calls
 
 Calls are used to apply some transformation to collection as a whole.
-<br>At the moment these are supported:
+
+At the moment these are supported:
 
 call      | description
 ----------|-------------
