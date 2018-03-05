@@ -167,7 +167,35 @@ Example                                            | Result                     
 
 #### Custom calls
 
-TODO
+You can define your own call handler `myCall` by implementing the function for `jsqry.fn.myCall`.
+
+Let's implement as an example the `partition` function of [lodash](https://lodash.com/) which splits an array into two according to a function
+
+```ecmascript 6
+_.partition([1, 2, 3, 4], n => n % 2);
+// → [[1, 3], [2, 4]]
+```
+
+Here is how you do this in jsqry using custom call:
+```javascript
+jsqry.fn.partition = function (pairs, res) {
+    var trueElts = [];
+    var falseElts = [];
+    res.push(trueElts, falseElts);
+    for (var i = 0; i < pairs.length; i++) {
+        var pair = pairs[i];
+        var e = pair[0]; // input element
+        var v = pair[1]; // function result for it
+        if (v)
+            trueElts.push(e);
+        else
+            falseElts.push(e);
+    }
+};
+
+query([1, 2, 3, 4], 'partition( _ % 2 )')
+// → [[1, 3], [2, 4]]
+```
 
 ### Nested filtering
 
@@ -180,14 +208,14 @@ If you try to achieve this using [filtering](#filtering) you realize that you ne
 var parents = [{name:"John", children:[{age:1},{age:5}]}, {name:"Alice", children:[{age:7},{age:12}]}];
 
 first(parents, '[_.children.filter(child=>child.age>10).length].name')
-// "Alice"
+// → "Alice"
 ``` 
 
 And here is how we can do the same much simpler using nested filtering:
 
 ```javascript
 first(parents, '<<children[_.age>10]>>.name')
-// "Alice"
+// → "Alice"
 ```
 
 During nested filtering element is included if nested `query` for it yields a result with at least one true-like element. 
@@ -213,36 +241,36 @@ Here are some interesting results you can achieve with jsqry if you twist it a b
 Zip:
 ```javascript
 query(['a', 'b', 'c', 'd'], '{[_,?[i]]}', ['A', 'B', 'C', 'D'])
-// [['a','A'],['b', 'B'],['c', 'C'],['d', 'D']]
+// → [['a','A'],['b', 'B'],['c', 'C'],['d', 'D']]
 
 query(['a', 'b', 'c', 'd'], '{ [_, ?[i], ?[i]] }', ['A', 'B', 'C', 'D'], ['AA', 'BB', 'CC', 'DD'])
-// [['a','A', 'AA'],['b', 'B', 'BB'],['c', 'C', 'CC'],['d', 'D', 'DD']]
+// → [['a','A', 'AA'],['b', 'B', 'BB'],['c', 'C', 'CC'],['d', 'D', 'DD']]
 ```
 
 Enumerate:
 ```javascript
 query(['a', 'b', 'c', 'd'], '{[i,_]}')
-// [[0, 'a'], [1, 'b'], [2, 'c'], [3, 'd']]
+// → [[0, 'a'], [1, 'b'], [2, 'c'], [3, 'd']]
 
 query(Array(26), '{String.fromCharCode(i+97)}').join('')
-// 'abcdefghijklmnopqrstuvwxyz'
+// → 'abcdefghijklmnopqrstuvwxyz'
 ```
 
 Difference:
 ```javascript
 query([1, 2, 1, 0, 3, 1, 4], '[?.indexOf(_)<0]', [0, 1])
-// [2, 3, 4]
+// → [2, 3, 4]
 ```
 
 Union:
 ```javascript
 query([[1, 2, 3], [101, 2, 1, 10], [2, 1]], '*.u()')
-// [1, 2, 3, 101, 10]
+// → [1, 2, 3, 101, 10]
 ```
 
 Famous [FizzBuzz](https://rosettacode.org/wiki/FizzBuzz) program:
 ```javascript
 query(Array(20), '{ i++, i % 15 == 0 ?? "FizzBuzz" : i % 3 == 0 ?? "Fizz" : i % 5 == 0 ?? "Buzz" : i }')
-// [1, 2, "Fizz", 4, "Buzz", "Fizz", 7, 8, "Fizz", "Buzz", 11, "Fizz", 13, 14, "FizzBuzz", 16, 17, "Fizz", 19, "Buzz"]             
+// → [1, 2, "Fizz", 4, "Buzz", "Fizz", 7, 8, "Fizz", "Buzz", 11, "Fizz", 13, 14, "FizzBuzz", 16, 17, "Fizz", 19, "Buzz"]             
 ```
 
