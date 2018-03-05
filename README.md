@@ -171,12 +171,13 @@ You can define your own call handler `myCall` by implementing the function for `
 
 Let's implement as an example the `partition` function of [lodash](https://lodash.com/) which splits an array into two according to a function
 
-```ecmascript 6
+```javascript
 _.partition([1, 2, 3, 4], n => n % 2);
 // → [[1, 3], [2, 4]]
 ```
 
 Here is how you do this in jsqry using custom call:
+
 ```javascript
 jsqry.fn.partition = function (pairs, res) {
     var trueElts = [];
