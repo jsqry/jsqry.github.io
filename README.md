@@ -238,3 +238,9 @@ query([[1, 2, 3], [101, 2, 1, 10], [2, 1]], '*.u()')
 // [1, 2, 3, 101, 10]
 ```
 
+Famous [FizzBuzz](https://rosettacode.org/wiki/FizzBuzz) program:
+```javascript
+query(Array(20), '{ i++, i % 15 == 0 ?? "FizzBuzz" : i % 3 == 0 ?? "Fizz" : i % 5 == 0 ?? "Buzz" : i }')
+// [1, 2, "Fizz", 4, "Buzz", "Fizz", 7, 8, "Fizz", "Buzz", 11, "Fizz", 13, 14, "FizzBuzz", 16, 17, "Fizz", 19, "Buzz"]             
+```
+
