@@ -23,11 +23,12 @@ Example                                      | Result  | Comment
 jsqry.first(target, query[, ...args])
 ```
 
-Same as `jsqry.query` described above but returns first item of result list.
+Same as `jsqry.query` described above but returns first item of result list or `null` in case of empty result.
 
-Example                                          | Result
--------------------------------------------------|-------
-`first([1,2,3,4,5], '[ _>? && _<? ]', 2, 5)`     | `3`   
+Example                                      | Result
+---------------------------------------------|-------
+`first([1,2,3,4,5], '[ _>? && _<? ]', 2, 5)` | `3`   
+`first([1,2,3,4,5], '[ _>6 ]')`              | `null`   
 
 ## Query syntax
 
