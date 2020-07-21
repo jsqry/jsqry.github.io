@@ -69,14 +69,14 @@ Filtering has a form `[ CONDITION ]` where `CONDITION` should be [functional exp
 
 Let's elaborate a bit how this works.
 
-In fact it's very simple. 
+In fact, it's very simple. 
 Every expression during execution by jsqry is substituted to a function this way: 
 
 from         | to                                                    
 -------------|--------------------------------------
 `EXPRESSION` | `function(_,i) { return EXPRESSION }`
 
-(here **_** — the value of item, **i** — it's index).
+(here **_** — the value of item, **i** — its index).
 
 This function is then applied to the elements being queried.
 
@@ -180,13 +180,13 @@ Here is how you do this in jsqry using custom call:
 
 ```javascript
 jsqry.fn.partition = function (pairs, res) {
-    var trueElts = [];
-    var falseElts = [];
+    const trueElts = [];
+    const falseElts = [];
     res.push(trueElts, falseElts);
-    for (var i = 0; i < pairs.length; i++) {
-        var pair = pairs[i];
-        var e = pair[0]; // input element
-        var v = pair[1]; // function result for it
+    for (let i = 0; i < pairs.length; i++) {
+        const pair = pairs[i];
+        const e = pair[0]; // input element
+        const v = pair[1]; // function result for it
         if (v)
             trueElts.push(e);
         else
@@ -234,6 +234,26 @@ Example                                       | Result                        | 
 `query([["a", "bb"], ["cccc"]],'length')`     | `[2, 1]`                      | Compare with previous
 `query([["a", "bb"], ["cccc",["dd"]]],'*')`   | `["a", "bb", "cccc", ["dd"]]` |
 `query([["a", "bb"], ["cccc",["dd"]]],'*.*')` | `["a", "bb", "cccc", "dd"]`   |
+
+### Use jsqry inside jsqry
+
+In any [functional expression](#functional-expression) two implicit functions `f` (stands for `first`) and `q` (stands for `query`) 
+are available.
+
+Thus, you can use jsqry right inside your queries.
+
+Example:
+
+```javascript
+const input = [
+  { name: "Alice", props: [{ key: "age", val: 30 }, { key: "car", val: "Volvo" }] },
+  { name: "Bob", props: [{ key: "age", val: 40 }] },
+  { name: "John", props: [] },
+];
+
+query(input, '{ _.name + " : " + (f(_.props,"[_.key===`age`].val")||"") }')
+// → ["Alice : 30", "Bob : 40", "John : "]
+```  
 
 ### More examples
 
